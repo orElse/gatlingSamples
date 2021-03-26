@@ -1,2 +1,18 @@
-*.class
-*.log
+**/.DS_Store
+
+### VSCode artifacts
+.history
+.ignore
+.metals
+.bloop
+.vscode
+project/metals.sbt
+
+### SBT artifacts
+**/target
+project/project
+.bsp
+
+### Idea artifacts
+.idea
+*.iml

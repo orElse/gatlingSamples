@@ -5,6 +5,14 @@ It uses [sbt](https://www.scala-sbt.org/) as build tool.
 
 Most examples should include links to relevant documentation sections.
 
+## Resources
+
+* [Gatling](https://gatling.io/)
+* [Tutorial gluing everything together](https://gatling.io/docs/3.4/advanced_tutorial/)
+* [HTTP Protocol](https://gatling.io/docs/3.4/http/http_protocol/)
+* [HTTP Checks](https://gatling.io/docs/3.4/http/http_check/)
+* [Cheat Sheet - Scenarios, Protocols, ...](https://gatling.io/docs/3.4/cheat-sheet/)
+
 ## Samples
 
 * s1.MinimalSetupSimulation
@@ -16,6 +24,8 @@ Most examples should include links to relevant documentation sections.
   * control flows and looping
 * s4.FeederSimulation
   * feeders for injection multiple user data
+* s5.RedirectsAndEtagSimulation  
+  * redirect and ETag handling + bypassing
 * z.OriginalSample
   * original gatling sample relying on gatling test service
   * work with html response different checks (liks css)

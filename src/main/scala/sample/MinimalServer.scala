@@ -7,6 +7,7 @@ import akka.actor.typed.scaladsl.Behaviors
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
 import akka.http.scaladsl.model._
+import akka.http.scaladsl.model.headers.EntityTag
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import akka.util.Timeout
@@ -101,11 +102,20 @@ class MinimalServer {
               }
           } ~ path(Segment) { itemId =>
             onSuccess(cache.ask(replyTo => GetItem(itemId, replyTo))) {
-              case Some(item) => complete(StatusCodes.OK, item)
+              case Some(item) =>
+                // Note we should create a better Etag here - e.g. use modification time - just for illustration in the test
+                conditional(eTag = Some(EntityTag(item.hashCode().toString, true)), None) {
+                  complete(StatusCodes.OK, item)
+                }
               case None => complete(StatusCodes.NotFound)
             }
           }
-        }
+        } ~
+          pathPrefix("redirect") {
+            path("items") {
+              redirect("/test/items", StatusCodes.PermanentRedirect)
+            }
+          }
       }
 
     val binding = Http().newServerAt("localhost", port).bind(route)

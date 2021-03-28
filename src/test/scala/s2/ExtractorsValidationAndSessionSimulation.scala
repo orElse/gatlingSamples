@@ -15,6 +15,7 @@ class ExtractorsValidationAndSessionSimulation extends Simulation {
   val httpProtocol = http
     .baseUrl("http://localhost:8080")
     .acceptHeader("application/json")
+    .disableWarmUp
 
   // the scenario
   val testScenario =
@@ -26,10 +27,14 @@ class ExtractorsValidationAndSessionSimulation extends Simulation {
             .body(StringBody("""{ "name": "add-me" }""")).asJson
             // checks https://gatling.io/docs/3.4/http/http_check/?highlight=check#concepts
             .check(
+              // response code check
               status is 201,
+              // checks on response body: e.g. jsonPath, regex, substring, ...
               jsonPath("$.name").is("add-me"),
               jsonPath("$.id").exists,
-              jsonPath("$.id").saveAs("newItemId")
+              jsonPath("$.id").saveAs("newItemId"),
+              // can extract values by type and also perform transformations on it
+              jsonPath("$.id").ofType[String].transform(idString => idString.reverse).saveAs("revertedItemId")
             )
         )
           // sessions https://gatling.io/docs/3.4/session/

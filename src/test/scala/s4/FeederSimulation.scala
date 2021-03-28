@@ -15,6 +15,7 @@ class FeederSimulation extends Simulation {
   val httpProtocol = http
     .baseUrl("http://localhost:8080")
     .acceptHeader("application/json")
+    .disableWarmUp
 
   // feeder https://gatling.io/docs/current/session/feeder/#feeder & https://gatling.io/docs/current/advanced_tutorial/?highlight=feeder
   // many types like json,csv,jdbc (some subtypes are exclusive to frontline)

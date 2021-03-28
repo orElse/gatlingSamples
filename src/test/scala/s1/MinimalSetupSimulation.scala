@@ -15,6 +15,7 @@ class MinimalSetupSimulation extends Simulation {
   val httpProtocol = http
     .baseUrl("http://localhost:8080")
     .acceptHeader("application/json")
+    .disableWarmUp
 
   // the scenario - different protocols can be mixed
   val testScenario =

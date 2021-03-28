@@ -15,6 +15,7 @@ class ErrorHandlingAndControlFlowSimulation extends Simulation {
   val httpProtocol = http
     .baseUrl("http://localhost:8080")
     .acceptHeader("application/json")
+    .disableWarmUp
 
   // the scenario
   val items = Array(
